@@ -178,6 +178,16 @@
         "Resource": [
             "arn:aws:events:*:*:rule/*-*-*"
         ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "dynamodb:DescribeTable",
+          "dynamodb:CreateTable"
+        ],
+        "Resource": [
+          "arn:aws:dynamodb:*:*:table/*-*"
+        ]
       }
     ]
 }

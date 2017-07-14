@@ -8,6 +8,8 @@ provider:
   region: eu-central-1
   memorySize: 256
   timeout: 10s
+  environment:
+    SLS_STAGE: ${opt:stage, self:provider.stage}
 
 functions:
   main:
@@ -32,3 +34,19 @@ functions:
       URL_INSTALL: https://serverless.com/framework/docs/providers/aws/guide/installation/
       URL_ABCD: http://serverless.com/
       URL_AWS: https://aws.amazon.com/
+
+resources:
+  Resources:
+    LinkDB:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: slug
+            AttributeType: S
+        KeySchema:
+          - AttributeName: slug
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 2
+          WriteCapacityUnits: 2
+        TableName: "${opt:stage, self:provider.stage}-${self:service}"
