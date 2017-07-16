@@ -184,10 +184,11 @@
         "Action": [
           "dynamodb:DescribeTable",
           "dynamodb:CreateTable",
+          "dynamodb:DeleteTable",
           "dynamodb:UpdateTable"
         ],
         "Resource": [
-          "arn:aws:dynamodb:*:*:table/*-*"
+          "arn:aws:dynamodb:*:*:table/*"
         ]
       }
     ]
