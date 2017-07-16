@@ -10,6 +10,11 @@ provider:
   timeout: 10s
   environment:
     SLS_STAGE: ${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Action:
+        - dynamodb:GetItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${opt:stage, self:provider.stage}-${self:service}"
+      Effect: Allow
 
 functions:
   main:
@@ -30,10 +35,6 @@ functions:
       - http:
           path: /{slug}
           method: get
-    environment:
-      URL_INSTALL: https://serverless.com/framework/docs/providers/aws/guide/installation/
-      URL_ABCD: http://serverless.com/
-      URL_AWS: https://aws.amazon.com/
 
 resources:
   Resources:
