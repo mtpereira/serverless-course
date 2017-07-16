@@ -183,7 +183,8 @@
         "Effect": "Allow",
         "Action": [
           "dynamodb:DescribeTable",
-          "dynamodb:CreateTable"
+          "dynamodb:CreateTable",
+          "dynamodb:UpdateTable"
         ],
         "Resource": [
           "arn:aws:dynamodb:*:*:table/*-*"
