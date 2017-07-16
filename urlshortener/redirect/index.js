@@ -15,12 +15,7 @@ module.exports.handler = (event, context, callback) => {
     Key: {
       slug: slug
     }
-  }, (err, data) => {
-    console.log(data)
-    if (err) {
-      console.log(err)
-      return callback(err)
-    }
+  }).promise().then(data => {
     if (data.Item) {
       callback(
         null,
@@ -31,19 +26,21 @@ module.exports.handler = (event, context, callback) => {
             'Location': data.Item.long_url,
             'Content-Type': 'text/plain'
           }
-        }
-      )
+        })
     } else {
       callback(
-      null,
+        null,
         {
           statusCode: 404,
-          body: "This shortened link deson't exsit, check that you've entered it right.",
+          body: "This shortened link doesn't exsit, check that you've entered it right.",
           headers: {
             'Content-Type': 'text/plain'
           }
         }
       )
     }
+  }).catch(err => {
+    console.log(data)
+    callback(err)
   })
 }
